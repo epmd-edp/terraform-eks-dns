@@ -1,7 +1,9 @@
 resource "aws_route53_zone" "public" {
   count  = var.create_external_zone ? 1 : 0
   name   = var.platform_external_subdomain
-  vpc_id = var.platform_vpc_id
+  vpc {
+    vpc_id = var.platform_vpc_id
+  }
   tags   = merge(var.tags, map("Name", "${var.platform_name}-public"))
 }
 
